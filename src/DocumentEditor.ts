@@ -34,12 +34,14 @@ export class DocumentEditor implements vscode.Disposable {
         this.fileMap[localPath] = item;
 
         const result = await item.readContent();
-        const defaultJson = DocumentEditor.getDefaultJson(item.itemKind);
-        await fse.writeJson(localPath, result ? result.content : defaultJson, { spaces: 4 });
-
-        const doc = await vscode.workspace.openTextDocument(localPath);
-        vscode.languages.setTextDocumentLanguage(doc, "json");
-        await vscode.window.showTextDocument(doc);
+        if(!result._store) {
+            const defaultJson = DocumentEditor.getDefaultJson(item.itemKind);
+            await fse.writeJson(localPath, result ? result.content : defaultJson, { spaces: 4 });
+    
+            const doc = await vscode.workspace.openTextDocument(localPath);
+            vscode.languages.setTextDocumentLanguage(doc, "json");
+            await vscode.window.showTextDocument(doc);
+        }
     }
 
     public async onDidSaveTextDocument(doc: vscode.TextDocument) : Promise<void> {

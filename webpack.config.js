@@ -9,6 +9,7 @@
 
 'use strict';
 
+const path = require('path');
 const process = require('process');
 const dev = require("vscode-azureextensiondev");
 const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -33,4 +34,36 @@ if (DEBUG_WEBPACK) {
     console.log('Config:', config);
 }
 
-module.exports = config;
+const reactWebviewExports = {
+    entry: './src/webviewForDetails/index',
+    devtool: DEBUG_WEBPACK ? 'cheap-source-map' : 'source-map',
+    output: {
+        path: path.resolve(__dirname, 'resources/webviewForDetails'),
+        filename: 'webview.js'
+    },
+    module: {
+        rules: [
+            {
+                test: /\.tsx?$/,
+                loader: 'babel-loader',
+                exclude: /node_modules/,
+                options: {
+                    presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript'],
+                    plugins: ["@babel/transform-runtime", "@babel/plugin-proposal-class-properties"]
+                }
+            },
+            {
+                test: /\.ts$/,
+                exclude: /node_modules/,
+                loader: 'ts-loader',
+                options: {
+                    configFile: './tsconfig.json'
+                }
+            }
+        ],
+    },
+    resolve: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx']
+    }
+};
+module.exports = [reactWebviewExports, config];

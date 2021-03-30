@@ -12,7 +12,7 @@ export interface IDocumentRepository {
 
     readonly extension: string;
 
-    readContent(): Promise<{ content: any, etag?: string } | undefined>;
+    readContent(): Promise<any>;
 
     updateContent(content: any, etag?: string): Promise<void>;
 }
