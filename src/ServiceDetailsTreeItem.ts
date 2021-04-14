@@ -10,6 +10,9 @@ import { getResourcesPath } from "./constants";
 import * as vscode from 'vscode';
 import * as path from 'path';
 import getWebviewContent from './webviewForDetails/getWebviewContent';
+import { SimpleSearchClient } from "./SimpleSearchClient";
+import { SearchServiceTreeItem } from "./SearchServiceTreeItem";
+import switchCalls from './WebViewSwitchCalls';
 
 export class ServiceDetailsTreeItem extends AzureTreeItem implements IDocumentRepository {
     public readonly commandId: string = "azureCognitiveSearch.openDocument";
@@ -21,8 +24,9 @@ export class ServiceDetailsTreeItem extends AzureTreeItem implements IDocumentRe
     readonly extension: string = "azssvc";
 
     public constructor(
-        parent: AzureParentTreeItem,
-        private readonly searchService: SearchService) {
+        parent: SearchServiceTreeItem,
+        private readonly searchService: SearchService,
+        private readonly searchClient: SimpleSearchClient) {
         super(parent);
         this.itemName = searchService.name || "";
         this.namePrefix = `service-${searchService.name}`;
@@ -42,8 +46,13 @@ export class ServiceDetailsTreeItem extends AzureTreeItem implements IDocumentRe
                 enableScripts: true
             }
         );
-        panel.webview.html = getWebviewContent(panel, this.searchService);
-        panel.webview.postMessage(this.searchService);
+        panel.webview.html = getWebviewContent(panel);
+        panel.webview.postMessage({data: this.searchService});
+        panel.webview.onDidReceiveMessage(message => {
+            switchCalls(message, this.searchClient, (response: any) => {
+                panel.webview.postMessage(response);
+            });
+        });
         return panel;
     }
 

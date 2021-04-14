@@ -47,7 +47,7 @@ export class SearchServiceTreeItem extends AzureParentTreeItem {
         const searchClient = new SimpleSearchClient(this.name, <string>keys.primaryKey);
 
         return [
-            new ServiceDetailsTreeItem(this, this.searchService),
+            new ServiceDetailsTreeItem(this, this.searchService, searchClient),
             new IndexListTreeItem(this, searchClient),
             new DataSourceListTreeItem(this, searchClient),
             new IndexerListTreeItem(this, searchClient),

@@ -1,10 +1,9 @@
-import { SearchService } from 'azure-arm-search/lib/models';
 import * as vscode from 'vscode';
 import * as path from 'path';
 import { ext } from '../extensionVariables';
 
 
-const getWebviewContent = (panel: vscode.WebviewPanel, searchService: SearchService) => {
+const getWebviewContent = (panel: vscode.WebviewPanel) => {
 	const onDiskPath = vscode.Uri.file(
 		path.join(ext.context.extensionPath, 'resources', "webviewForDetails", 'webview.js')
 	);

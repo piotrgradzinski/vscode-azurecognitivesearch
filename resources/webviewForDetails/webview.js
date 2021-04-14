@@ -30143,6 +30143,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var _Views_listsIndexes__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Views/listsIndexes */ "./src/webviewForDetails/app/Views/listsIndexes.tsx");
 
 
 
@@ -30150,22 +30151,75 @@ var _templateObject;
 
 
 
-var Wrapper = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].div(_templateObject || (_templateObject = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1___default()(["\n    background: white;\n    padding: 16px;\n    display: flex;\n    flex-direction: column;\n    > span {\n        font-size: 14px;\n        color: black;\n        margin: 0 0 8px 0;\n    }\n"])));
-var MainContainer = function MainContainer() {
-  var _data$sku, _data$tags, _data$tags2, _data$tags3, _data$tags4;
 
+var Wrapper = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].div(_templateObject || (_templateObject = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1___default()(["\n    background: white;\n    padding: 16px;\n    display: flex;\n    flex-direction: column;\n    > span {\n        font-size: 14px;\n        color: black;\n        margin: 0 0 8px 0;\n    }\n"])));
+var vscode = acquireVsCodeApi();
+var MainContainer = function MainContainer() {
   var _React$useState = react__WEBPACK_IMPORTED_MODULE_2__["useState"](undefined),
       _React$useState2 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_React$useState, 2),
       data = _React$useState2[0],
       setData = _React$useState2[1];
 
+  var _React$useState3 = react__WEBPACK_IMPORTED_MODULE_2__["useState"]('default'),
+      _React$useState4 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_React$useState3, 2),
+      viewsData = _React$useState4[0],
+      setViewsData = _React$useState4[1];
+
   react__WEBPACK_IMPORTED_MODULE_2__["useEffect"](function () {
     window.addEventListener('message', function (event) {
-      setData(event.data);
+      var _event$data;
+
       console.log('event.data', event.data);
+
+      switch (event.data.title) {
+        case 'listIndexes':
+          {
+            setViewsData(event.data);
+          }
+
+        case 'listResources':
+          {
+            setViewsData(event.data);
+          }
+
+        default:
+          setData((_event$data = event.data) === null || _event$data === void 0 ? void 0 : _event$data.data);
+      }
     });
   }, []);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"](react__WEBPACK_IMPORTED_MODULE_2__["Fragment"], null, data ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"](Wrapper, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"]("span", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"]("strong", null, "Id:"), " ", data.id), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"]("span", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"]("strong", null, "Location:"), " ", data.location), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"]("span", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"]("strong", null, "Name:"), " ", data.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"]("span", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"]("strong", null, "SKU name:"), " ", (_data$sku = data.sku) === null || _data$sku === void 0 ? void 0 : _data$sku.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"]("span", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"]("strong", null, "Tag - Client:"), " ", (_data$tags = data.tags) === null || _data$tags === void 0 ? void 0 : _data$tags.client), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"]("span", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"]("strong", null, "Tag - environment:"), " ", (_data$tags2 = data.tags) === null || _data$tags2 === void 0 ? void 0 : _data$tags2.environment), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"]("span", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"]("strong", null, "Tag - instance:"), " ", (_data$tags3 = data.tags) === null || _data$tags3 === void 0 ? void 0 : _data$tags3.instance), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"]("span", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"]("strong", null, "Tag - project:"), " ", (_data$tags4 = data.tags) === null || _data$tags4 === void 0 ? void 0 : _data$tags4.project), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"]("span", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"]("strong", null, "Type:"), " ", data.type)) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"]("span", null, "Loading data..."));
+
+  var getIndexes = function getIndexes() {
+    vscode.postMessage('listIndexes');
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"](react__WEBPACK_IMPORTED_MODULE_2__["Fragment"], null, data ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"](Wrapper, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"]("button", {
+    onClick: getIndexes
+  }, "Get indexes - button example"), viewsData.title === 'listIndexes' && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"](_Views_listsIndexes__WEBPACK_IMPORTED_MODULE_4__["ListIndexes"], {
+    data: viewsData.data
+  })) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"]("span", null, "Loading data..."));
+};
+
+/***/ }),
+
+/***/ "./src/webviewForDetails/app/Views/listsIndexes.tsx":
+/*!**********************************************************!*\
+  !*** ./src/webviewForDetails/app/Views/listsIndexes.tsx ***!
+  \**********************************************************/
+/*! exports provided: ListIndexes */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ListIndexes", function() { return ListIndexes; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+var ListIndexes = function ListIndexes(props) {
+  var _props$data;
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, (_props$data = props.data) === null || _props$data === void 0 ? void 0 : _props$data.map(function (elem) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", null, elem.name);
+  }));
 };
 
 /***/ }),

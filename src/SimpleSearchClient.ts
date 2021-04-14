@@ -10,6 +10,10 @@ export class SimpleSearchClient {
     private static readonly API_VERSION = "2020-06-30";
     private static readonly API_VERSION_PREVIEW = "2020-06-30-preview";
     private readonly userAgent: string;
+    private readonly apiInf: {
+        apiVersion: string;
+        apiVersionPreview: string;
+    };
 
     public static readonly DataSources: string = "datasources";
     public static readonly Indexers: string = "indexers";
@@ -22,6 +26,10 @@ export class SimpleSearchClient {
         private readonly apikey: string,
         private readonly cloudSuffix?: string | undefined) {
         this.userAgent = appendExtensionUserAgent();
+        this.apiInf = {
+            apiVersion: SimpleSearchClient.API_VERSION,
+            apiVersionPreview: SimpleSearchClient.API_VERSION_PREVIEW
+        };
     }
 
     public async listIndexes() : Promise<Index[]> {
@@ -41,7 +49,7 @@ export class SimpleSearchClient {
 
     public async createResource(resource: string, content: any): Promise<{ content: any, etag: any }> {
         let r = await this.httpPost(resource, content);
-        return { content: r.data, etag: r.headers["etag"] }
+        return { content: r.data, etag: r.headers["etag"] };
     }
 
     public updateResource(resource: string, name: string, content: any, etag?: string): Promise<void> {
