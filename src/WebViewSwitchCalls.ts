@@ -12,6 +12,16 @@ const switchCalls = (exp: string, searchList: SimpleSearchClient, callback: any,
                     });
                 });
 
+        case 'serviceStats':
+            searchList.getServiceStats()
+                .then((response: any) => {
+                    console.log('response', response);
+                    return callback({
+                        title: exp,
+                        data: response
+                    });
+                });
+
         case 'listResources':
             searchList.listResources(resource)
                 .then((response: any) => {

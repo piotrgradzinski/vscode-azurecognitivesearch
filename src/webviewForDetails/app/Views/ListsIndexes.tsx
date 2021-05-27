@@ -7,10 +7,17 @@ interface IListIndexesProps {
 
 export const ListIndexes: React.FC<IListIndexesProps> = props => {
     return (
-        <>
-            {props.data?.map(elem => 
-                <span>{elem.name}</span>
-            )}
-        </>
+        <table>
+            <thead>
+                <th>
+                    <td>Name</td>
+                </th>
+            </thead>
+            <tbody>
+                {props.data?.map(elem =>
+                    <tr><td>{elem.name}</td></tr>
+                )}
+            </tbody>
+        </table>
     );
 };

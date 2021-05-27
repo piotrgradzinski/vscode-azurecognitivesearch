@@ -68,6 +68,12 @@ export class SimpleSearchClient {
         return this.httpPost(`${resource}/${name}/run`, null);
     }
 
+    public async getServiceStats(): Promise<any> {
+        let r = await this.httpGet<any>("servicestats");
+
+        return r.data.counters;
+    }
+
     public async query(indexName: string, query: string, raw: boolean = false) : Promise<QueryResponse> {
         let r = await this.httpGet(`indexes/${indexName}/docs`, query);
         if (!raw) {
@@ -197,12 +203,11 @@ export class SimpleSearchClient {
         }
 
         // Using the preview API for document operations
-        if (path.endsWith("docs") || path.endsWith("docs/search")) {
+        if (path && (path.endsWith("docs") || path.endsWith("docs/search"))) {
             return `https://${this.serviceName}.${suffix}/${path}?api-version=${SimpleSearchClient.API_VERSION_PREVIEW}${options}`;
         } else {
             return `https://${this.serviceName}.${suffix}/${path}?api-version=${SimpleSearchClient.API_VERSION}${options}`;
         }
-        
     }
 
     private makeRequestConfig(): AxiosRequestConfig {
