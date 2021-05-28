@@ -69,6 +69,7 @@ export class SimpleSearchClient {
     }
 
     public async getServiceStats(): Promise<any> {
+        // TODO: Prepare interface instead of any.
         let r = await this.httpGet<any>("servicestats");
 
         return r.data.counters;

@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 interface IServiceStatsProps {
-    data: any;
+    data: any; // TODO: Use interface instead of any.
 }
 
 function formatBytes(bytes: number, decimals = 2) {
