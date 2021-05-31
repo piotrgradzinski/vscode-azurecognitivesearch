@@ -2,6 +2,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 
 import { ListIndexes } from './Views/listsIndexes';
+import { ServiceStatsView } from './Views/ServiceStatsView';
 
 const Wrapper = styled.div`
     background: white;
@@ -34,6 +35,10 @@ export const MainContainer: React.FC = () => {
                     setViewsData(event.data);
                 }
 
+                case 'serviceStats': {
+                    setViewsData(event.data);
+                }
+
                 default: setData(event.data?.data);
             }
         });
@@ -43,11 +48,16 @@ export const MainContainer: React.FC = () => {
         vscode.postMessage('listIndexes');
     };
 
+    const getServiceStats = () => {
+        vscode.postMessage('serviceStats');
+    };
+
     return (
         <>
             {data ? (
                 <Wrapper>
                     <button onClick={getIndexes}>Get indexes - button example</button>
+                    <button onClick={getServiceStats}>Service stats - should be loaded first</button>
                     {/* <span><strong>Id:</strong> {data.id}</span>
                     <span><strong>Location:</strong> {data.location}</span>
                     <span><strong>Name:</strong> {data.name}</span>
@@ -59,6 +69,9 @@ export const MainContainer: React.FC = () => {
                     <span><strong>Type:</strong> {data.type}</span> */}
                     {viewsData.title === 'listIndexes' &&
                         <ListIndexes data={viewsData.data} />
+                    }
+                    {viewsData.title === 'serviceStats' &&
+                        <ServiceStatsView data={viewsData.data} />
                     }
                 </Wrapper>
             ) : (

@@ -30144,10 +30144,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
 /* harmony import */ var _Views_listsIndexes__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Views/listsIndexes */ "./src/webviewForDetails/app/Views/listsIndexes.tsx");
+/* harmony import */ var _Views_ServiceStatsView__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Views/ServiceStatsView */ "./src/webviewForDetails/app/Views/ServiceStatsView.tsx");
 
 
 
 var _templateObject;
+
 
 
 
@@ -30182,6 +30184,11 @@ var MainContainer = function MainContainer() {
             setViewsData(event.data);
           }
 
+        case 'serviceStats':
+          {
+            setViewsData(event.data);
+          }
+
         default:
           setData((_event$data = event.data) === null || _event$data === void 0 ? void 0 : _event$data.data);
       }
@@ -30192,11 +30199,50 @@ var MainContainer = function MainContainer() {
     vscode.postMessage('listIndexes');
   };
 
+  var getServiceStats = function getServiceStats() {
+    vscode.postMessage('serviceStats');
+  };
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"](react__WEBPACK_IMPORTED_MODULE_2__["Fragment"], null, data ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"](Wrapper, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"]("button", {
     onClick: getIndexes
-  }, "Get indexes - button example"), viewsData.title === 'listIndexes' && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"](_Views_listsIndexes__WEBPACK_IMPORTED_MODULE_4__["ListIndexes"], {
+  }, "Get indexes - button example"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"]("button", {
+    onClick: getServiceStats
+  }, "Service stats - should be loaded first"), viewsData.title === 'listIndexes' && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"](_Views_listsIndexes__WEBPACK_IMPORTED_MODULE_4__["ListIndexes"], {
+    data: viewsData.data
+  }), viewsData.title === 'serviceStats' && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"](_Views_ServiceStatsView__WEBPACK_IMPORTED_MODULE_5__["ServiceStatsView"], {
     data: viewsData.data
   })) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"]("span", null, "Loading data..."));
+};
+
+/***/ }),
+
+/***/ "./src/webviewForDetails/app/Views/ServiceStatsView.tsx":
+/*!**************************************************************!*\
+  !*** ./src/webviewForDetails/app/Views/ServiceStatsView.tsx ***!
+  \**************************************************************/
+/*! exports provided: ServiceStatsView */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ServiceStatsView", function() { return ServiceStatsView; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+var ServiceStatsView = function ServiceStatsView(props) {
+  var _props$data, _props$data2, _props$data3, _props$data4, _props$data5, _props$data6, _props$data7, _props$data8;
+
+  var formatBytes = function formatBytes(bytes) {
+    var decimals = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
+    if (bytes === 0) return '0 Bytes';
+    var k = 1024;
+    var dm = decimals < 0 ? 0 : decimals;
+    var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+    var i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("h1", null, "Service Stats"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("dl", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("dt", null, "Storage"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("dd", null, formatBytes((_props$data = props.data) === null || _props$data === void 0 ? void 0 : _props$data.storageSize.usage), "/", formatBytes((_props$data2 = props.data) === null || _props$data2 === void 0 ? void 0 : _props$data2.storageSize.quota)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("dt", null, "Indexes"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("dd", null, (_props$data3 = props.data) === null || _props$data3 === void 0 ? void 0 : _props$data3.indexesCount.usage, "/", (_props$data4 = props.data) === null || _props$data4 === void 0 ? void 0 : _props$data4.indexesCount.quota), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("dt", null, "Indexers"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("dd", null, (_props$data5 = props.data) === null || _props$data5 === void 0 ? void 0 : _props$data5.indexersCount.usage, "/", (_props$data6 = props.data) === null || _props$data6 === void 0 ? void 0 : _props$data6.indexersCount.quota), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("dt", null, "Data Sources"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("dd", null, (_props$data7 = props.data) === null || _props$data7 === void 0 ? void 0 : _props$data7.dataSourcesCount.usage, "/", (_props$data8 = props.data) === null || _props$data8 === void 0 ? void 0 : _props$data8.dataSourcesCount.quota)));
 };
 
 /***/ }),
@@ -30217,9 +30263,9 @@ __webpack_require__.r(__webpack_exports__);
 var ListIndexes = function ListIndexes(props) {
   var _props$data;
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, (_props$data = props.data) === null || _props$data === void 0 ? void 0 : _props$data.map(function (elem) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", null, elem.name);
-  }));
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("table", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("thead", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("th", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("td", null, "Name"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("tbody", null, (_props$data = props.data) === null || _props$data === void 0 ? void 0 : _props$data.map(function (elem) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("td", null, elem.name));
+  })));
 };
 
 /***/ }),
