@@ -30229,19 +30229,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 
-
-function formatBytes(bytes) {
-  var decimals = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
-  if (bytes === 0) return '0 Bytes';
-  var k = 1024;
-  var dm = decimals < 0 ? 0 : decimals;
-  var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-  var i = Math.floor(Math.log(bytes) / Math.log(k));
-  return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
-}
-
 var ServiceStatsView = function ServiceStatsView(props) {
   var _props$data, _props$data2, _props$data3, _props$data4, _props$data5, _props$data6, _props$data7, _props$data8;
+
+  var formatBytes = function formatBytes(bytes) {
+    var decimals = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
+    if (bytes === 0) return '0 Bytes';
+    var k = 1024;
+    var dm = decimals < 0 ? 0 : decimals;
+    var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+    var i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+  };
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("h1", null, "Service Stats"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("dl", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("dt", null, "Storage"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("dd", null, formatBytes((_props$data = props.data) === null || _props$data === void 0 ? void 0 : _props$data.storageSize.usage), "/", formatBytes((_props$data2 = props.data) === null || _props$data2 === void 0 ? void 0 : _props$data2.storageSize.quota)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("dt", null, "Indexes"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("dd", null, (_props$data3 = props.data) === null || _props$data3 === void 0 ? void 0 : _props$data3.indexesCount.usage, "/", (_props$data4 = props.data) === null || _props$data4 === void 0 ? void 0 : _props$data4.indexesCount.quota), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("dt", null, "Indexers"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("dd", null, (_props$data5 = props.data) === null || _props$data5 === void 0 ? void 0 : _props$data5.indexersCount.usage, "/", (_props$data6 = props.data) === null || _props$data6 === void 0 ? void 0 : _props$data6.indexersCount.quota), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("dt", null, "Data Sources"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("dd", null, (_props$data7 = props.data) === null || _props$data7 === void 0 ? void 0 : _props$data7.dataSourcesCount.usage, "/", (_props$data8 = props.data) === null || _props$data8 === void 0 ? void 0 : _props$data8.dataSourcesCount.quota)));
 };
